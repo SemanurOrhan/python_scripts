@@ -29,7 +29,8 @@ while True:     # print fonksiyonu ile ekrana yazdirilan urunlerden secim yapili
         toplam+=int(fiyatlar[index])            # secilen urunun fiyatini toplam degiskenine ekler.
         print(secilen,"urununu sepetinize eklediniz. ")
         devam=input("Alisverise devam etmek istiyor musunuz? (E/H): ")
-        if devam=="H" or "h":
+        if devam.lower() =="h":
+            print("Mağazadan çıkılıyor... Hoşçakalın... ")
             break
     else:
         print("Boyle bir urun bulunmamaktadir. ")
