@@ -77,4 +77,63 @@ for student in students:
     print("16)",student[0],student[1])
 
 
+################################################################
+names=["Ali","Zeynep","Yunus","Seher"]
+years=[2000,2004,1998,1998]
 
+# "Cenk" ismini listenin sonuna ekleyiniz.
+names.append("Cenk")
+print("17)",names)
+
+# "Sena" ve "Deniz” değerini listenin başına ekleyiniz.
+names.insert(0, "Sena")
+names.insert(0, "Deniz")
+print("18)",names)
+
+
+# "Deniz" ismini listeden siliniz.
+names.remove("Deniz")
+print("19)",names)
+
+# "Ali" isminin indeksi nedir ?
+print("20)",names.index("Ali"))
+
+# "Deniz" listenin bir elemanı mıdır ?
+if names.count("Deniz")>0:
+    print("21) Deniz listede bir elemandir.")
+else:
+    print("21) Deniz listede yoktur...")
+
+# Liste elemanlarını ters çevirin.
+print("22)",names[::-1])
+
+# Liste elemanlarını alfabetik olarak sıralayınız.
+names.sort()
+print("23) ",names)
+
+
+# years listesini rakamsal büyüklüğe göre sıralayınız.
+years.sort()
+print("24) ",years)
+
+# years dizisinin en büyük ve en küçük elemanı nedir ?
+print("25) ", "Max:",max(years),"/ Min:",min(years))
+
+# years dizisinde kaç tane 1998 değeri vardır ?
+print("26) ",years.count(1998))
+
+# years dizisinin tüm elemanlarını siliniz.
+years.clear()
+print("27) ",years)
+
+# str= "Chevrolet,Dacia” karakter dizisini listeye çeviriniz.
+str="Chevrolet,Dacia"
+str1= str.split(",")
+print("28) ",str1)
+
+# Kullanıcıdan alacağınız 3 tane marka bilgisini bir listede saklayınız.
+userCars=[]
+userCars=input("Marka1: "),input("Marka2: "),input("Marka3: ")
+print("29) ", userCars)
+Ucar= (userCars, str1)
+print("29) ", Ucar)
