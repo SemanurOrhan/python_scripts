@@ -1,4 +1,4 @@
-# Description: String methods
+# String methods
 
 #text karakter dizisinde kaç karakter bulunur?
 
@@ -15,7 +15,7 @@ print(y)
 
 #string formatlama yöntemiyle metni istenen hale getirin: My name is Harry Potter. I am 34 years old. I was born on 03.09.2000.
 
-name, surname, age, date_of_birth= "Harry", "Potter", 34, '03.09.2000'
+name, surname, age, date_of_birth= "Harry", "Potter", 23, '03.09.2000'
 print("My name is {} {}. I am {} years old. I was born on {}.".format(name, surname, age, date_of_birth))
 
 
@@ -34,9 +34,6 @@ print(text.count("a")) #bu şekilde de yapılabilir.
 newText= text.replace(" ","-")
 print(newText)
 
-
-
-
 #' Hello World ' karakter dizisinin baş ve sonundaki boşluk karakterini siliniz.
 message = ' Hello World '.strip()
 print(message)
@@ -47,8 +44,8 @@ msg=" Harry Potter Zumruduanka Yoldasligi "
 msg1=msg.replace("h","").replace("r","").replace("t","").replace("l","")
 print(msg1)
 
-# "SICAK HAVALAR GECSE DE BEN HALEN YANIYORUM" karakter dizisindeki tüm karakterleri küçük karaktere çeviriniz.
-msg2="SICAK HAVALAR GECSE DE BEN HALEN YANIYORUM".lower()
+# "ŞEy, çAy yapayIm mı? dedI RoN. BiriSi üZülDü mü aNNem hEp ÖyLe yAPAr." karakter dizisindeki tüm karakterleri küçük karaktere çeviriniz.
+msg2="ŞEy, çAy yapayIm mı? dedI RoN. BiriSi üZülDü mü aNNem hEp ÖyLe yAPAr.".lower()
 print(msg2)
 
 # "hello world" karakter dizisindeki tüm karakterleri büyük karaktere çeviriniz.
@@ -63,6 +60,6 @@ print(msg4)
 msg5="Python Programlama Dili".swapcase()
 print(msg5)
 
-# "Python gozkapagina sahip degildir." karakter dizisindeki g karakterinin sayısını yazdırınız.
-msg6="Python gozkapagina sahip degildir.".count("g")
+# "Pythons gozkapagina sahip degildir." karakter dizisindeki g karakterinin sayısını yazdırınız.
+msg6="Pythons gozkapagina sahip degildir.".count("g")
 print(msg6)#3
