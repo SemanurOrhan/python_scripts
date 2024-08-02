@@ -131,8 +131,7 @@ str="Chevrolet,Dacia"
 str1= str.split(",")
 print("28) ",str1)
 
-# Kullanıcıdan alacağınız 3 tane marka bilgisini bir listede saklayınız.
-userCars=[]
+# Kullanıcıdan alacağınız 3 tane marka bilgisini bir tupleda saklayınız.
 userCars=input("Marka1: "),input("Marka2: "),input("Marka3: ")
 print("29) ", userCars)
 Ucar= (userCars, str1)
