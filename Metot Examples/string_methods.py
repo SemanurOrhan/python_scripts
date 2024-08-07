@@ -13,7 +13,7 @@ y= text[::-1]
 print(y)
 
 
-#string formatlama yöntemiyle metni istenen hale getirin: My name is Harry Potter. I am 34 years old. I was born on 03.09.2000.
+#string formatlama yöntemiyle metni istenen hale getirin: My name is Harry Potter. I am 23 years old. I was born on 03.09.2000.
 
 name, surname, age, date_of_birth= "Harry", "Potter", 23, '03.09.2000'
 print("My name is {} {}. I am {} years old. I was born on {}.".format(name, surname, age, date_of_birth))
