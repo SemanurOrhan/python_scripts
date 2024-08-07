@@ -25,15 +25,18 @@ while True:
                     print('Daha kucuk bir sayi giriniz.')
                     score -= scoreDown
                 i += 1
-            if i == claim:
-                print(f'Hakkiniz bitti. Tutulan sayi: {number}')
-                break
+                if i == claim:
+                    print(f'Hakkiniz bitti. Tutulan sayi: {number}')
+                    break
+
             answer = input("Tekrar oynamak ister misiniz?(E/H)")
             if answer.upper() == 'H':
                 print('Oyundan cikiliyor...')
                 break
             else:
                 continue
+        break
     else:
+        print("Seciminiz anlasilmadi lutfen tekrar deneyiniz.")
         continue
     
