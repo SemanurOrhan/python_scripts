@@ -5,217 +5,211 @@
 #3. Para Yatırma
 #4. Para Çekme
 
-#FUNCTIONS
-def check_exit():
-    answer = input("Başka hesap eklemek istiyor musunuz? (E/H)")
-    if answer.upper()=="E":
-        return 'continue'
-    else:
-        print("Cikis yapiliyor...")
-        return 'break'
-##process=1
-def addAccount(accountDict, account_number, name, balance):
-    if account_number not in accountDict:
-        accountDict[account_number] = []
-    accountDict[account_number].append({'name': name, 'balance': balance})
-    return "Hesap eklendi."
+#CLASS
+class ATMSystem:
 
-##process=2
-def deleteAccount(accountDict, account_number, name):
-    if account_number in accountDict:
-        accountDict[account_number] = [acc for acc in accountDict[account_number] if acc['name'] != name]
-        if not accountDict[account_number]:  # Eğer hesap numarası altında başka hesap kalmadıysa
-            del accountDict[account_number]  # Hesap numarasını tamamen kaldır
+    #CONTROL FUNCTIONS
+    def __init__(self):
+        self.accountDict = {}
+    
+    def validate_account_number(self, account_number):
+        if account_number.isdigit():
+            return True
+        return False
+    
+    def validate_balance(self, balance):
+        if balance >=0:
+            return True
+        return False
+    
+    def validate_amount(self, amount):
+        if amount >=0:
+            return True
+        return False
+
+    #FUNCTIONS
+    def check_exit(self):
+        answer = input("Başka işlem yapmak istiyor musunuz? (E/H)")
+        if answer.upper()=="E":
+            return 'continue'
         else:
-            print("Hesap numarası altında başka hesaplar bulunmaktadır.")
-        return "Hesap silindi."
-    return "Hesap bulunamadı."
+            print("Cikis yapiliyor...")
+            return 'break'
+        
+    ##process=1
+    def addAccount(self, account_number, name, balance):
+        if self.validate_account_number(account_number) and self.validate_balance(balance):
+            if account_number not in self.accountDict:
+                self.accountDict[account_number] = []
+            self.accountDict[account_number].append({'name': name, 'balance': balance})
+            return "Hesap ekleme başarılı."
+        return "Hesap numarası veya bakiye hatalı."
 
-##process=3
-def updateAccount(accountDict, account_number, old_name, new_name, new_balance):
-    if account_number in accountDict:
-        for account in accountDict[account_number]:
-            if account['name'] == old_name:
-                account['name'] = new_name
-                account['balance'] = new_balance
-                return "Hesap güncellendi."
-    return "Hesap bulunamadı."
-
-##process=4
-def listAccounts(accountDict):
-    for account_number, accounts in accountDict.items():
-        print(f"Hesap Numarası: {account_number}")
-        for account in accounts:
-            print(f"\tİsim: {account['name']}, Bakiye: {account['balance']}")
-    return "Hesaplar listelendi."
-
-
-##process=5
-def addExtraAccount(accountDict, account_number, name, balance):
-    if account_number in accountDict:
-        accountDict[account_number].append({'name': name, 'balance': balance})
-        return "Ek hesap eklendi."
-    else:
-        return "Hesap numarası bulunamadı."
-
-
-##process=6
-def checkBalance(accountDict, account_number, name):
-    if account_number in accountDict:
-        for account in accountDict[account_number]:
-            if account['name'] == name:
-                return f"İsim: {name}, Bakiye: {account['balance']}"
-            else:
-                print("Hesap bulunamadı.")
-    else:
-        print("Hesap bulunamadı")
-    return "Hesap bulunamadı."
-
-
-##process=7
-def depositMoney(accountDict, account_number, name, amount):
-    if account_number in accountDict:
-        for account in accountDict[account_number]:
-            if account['name'] == name:
-                account['balance'] += amount
-                return f"{amount} TL yatırıldı. Yeni Bakiye: {account['balance']}"
-            else:
-                print("Hesap bulunamadı.")
-    else: 
-        print("Hesap bulunamadı.")
-    return "Hesap bulunamadı."
-
-
-##process=8
-def withdrawMoney(accountDict, account_number, name, amount):
-    if account_number in accountDict:
-        for account in accountDict[account_number]:
-            if account['name'] == name:
-                if account['balance'] >= amount:
-                    account['balance'] -= amount
-                    return f"{amount} TL çekildi. Yeni Bakiye: {account['balance']}"
+    ##process=2
+    def deleteAccount(self, account_number, name):
+        if self.validate_account_number(account_number):
+            if account_number in self.accountDict:
+                self.accountDict[account_number] = [acc for acc in self.accountDict[account_number] if acc['name'] != name]
+                if not self.accountDict[account_number]:
+                    del self.accountDict[account_number]
                 else:
-                    return "Yetersiz bakiye!"
-            else: 
-                print("Hesap bulunamadı.")
-    else: 
-        print("Hesap bulunamadı.")
-    return "Hesap bulunamadı."
+                    print("Hesap numarası altında başka hesaplar bulunmaktadır.")
+                return "Hesap silindi."
+            return "Hesap bulunamadı."
+        return "Hesap numarası hatalı."
+
+    ##process=3
+    def updateAccount(self, account_number, name, new_name, new_balance):
+        if self.validate_account_number(account_number) and self.validate_balance(new_balance):
+            if account_number in self.accountDict:
+                for account in self.accountDict[account_number]:
+                    if account['name'] == name:
+                        account['name'] = new_name
+                        account['balance'] = new_balance
+                        return "Hesap güncellendi."
+            return "Hesap bulunamadı."
+        return "Hesap numarası veya girilen bakiye hatalı."
+
+    ##process=4
+    def listAccounts(self, account_number):
+        if self.validate_account_number(account_number):
+            if account_number in self.accountDict:
+                print(f"Hesap Numarası: {account_number}")
+                for account in self.accountDict[account_number]:
+                    print(f"\tİsim: {account['name']}, Bakiye: {account['balance']}")
+                return "Hesaplar listelendi."
+            return "Hesap bulunamadı."
+        return "Hesap numarası hatalı."
 
 
+    ##process=5
+    def addExtraAccount(self, account_number, name, balance):
+        if self.validate_account_number(account_number) and self.validate_balance(balance):
+            if account_number in self.accountDict:
+                if any(acc['name']== name for acc in self.accountDict[account_number]):
+                    return "Bu isimde bir hesap zaten bulunmaktadır."
+                
+                self.accountDict[account_number].append({'name': name, 'balance': balance})
+                return "Ek hesap eklendi."
+            else:
+                return "Hesap numarası bulunamadı."
+        return "Hesap numarası veya bakiye hatalı."
 
-#MAIN
-accountDict = {}
+
+    ##process=6
+    def checkBalance(self, account_number, name):
+        if self.validate_account_number(account_number):
+            if account_number in self.accountDict:
+                for account in self.accountDict[account_number]:
+                    if account['name'] == name:
+                        return f"İsim: {name}, Bakiye: {account['balance']}"
+                return "Hesap ismi bulunamadı."
+            else:
+                return "Hesap numarası bulunamadı."
+        return "Hesap numarası hatalı."
 
 
+    ##process=7
+    def depositMoney(self, account_number, name, amount):
+        if self.validate_account_number(account_number) and self.validate_amount(amount):
+            if account_number in self.accountDict:
+                for account in self.accountDict[account_number]:
+                    if account['name'] == name:
+                        account['balance'] += amount
+                        return f"{amount} TL yatırıldı. Yeni Bakiye: {account['balance']}"
+                return "Hesap ismi bulunamadı."
+            else:
+                return "Hesap numarası bulunamadı."
+        return "Hesap numarası veya girilen tutar hatalı."
 
+
+    ##process=8
+    def withdrawMoney(self, account_number, name, amount):
+        if self.validate_account_number(account_number) and self.validate_amount(amount):
+            if account_number in self.accountDict:
+                for account in self.accountDict[account_number]:
+                    if account['name'] == name:
+                        if account['balance'] >= amount:
+                            account['balance'] -= amount
+                            return f"{amount} TL çekildi. Yeni Bakiye: {account['balance']}"
+                        else:
+                            return "Yetersiz bakiye!"
+                return "Hesap ismi bulunamadı."
+            else:
+                return "Hesap numarası bulunamadı."
+        return "Hesap numarası veya girilen tutar hatalı."
 
 #SYSTEM
 
 def systemATM():
+    atm=ATMSystem()
+    print("ATM Sistemine Hoşgeldiniz.")
+
     while True:
-        process = input("Yapmak istediğiniz işlem numarasını seçiniz:\n 1. Hesap Ekleme\n 2. Hesap Silme\n 3. Hesap Güncelleme\n 4. Hesap Listeleme\n 5. Ek Hesap Ekleme\n 6. Bakiye Sorgulama\n 7. Para Yatırma\n 8. Para Çekme\n 9. Çıkış")
+        process = input("Yapmak istediğiniz işlem numarasını seçiniz:\n"
+                        " 1. Hesap Ekleme\n"
+                        " 2. Hesap Silme\n"
+                        " 3. Hesap Güncelleme\n"
+                        " 4. Hesap Listeleme\n"
+                        " 5. Ek Hesap Ekleme\n"
+                        " 6. Bakiye Sorgulama\n"
+                        " 7. Para Yatırma\n"
+                        " 8. Para Çekme\n"
+                        " 9. Çıkış\n Seçiminiz:")
+        
+        if process in ['1', '2', '3', '4', '5', '6', '7', '8']:
+            account_number = input("Hesap numarasını giriniz: ")
+            name= None
+            if process in ['1', '2', '3', '5', '6', '7', '8']:
+                name = input("Hesap adını giriniz: ")
 
         if process=="1":
-            account_number = input("Hesap numarasını giriniz: ")
-            name = input("Hesap adını giriniz: ")
             balance = int(input("Hesap bakiyesini giriniz: "))
-            print(addAccount(accountDict, account_number, name, balance))
+            print(atm.addAccount( account_number, name, balance))
 
         elif process=="2":
-            account_number = input("Silmek istediğiniz hesap numarasını giriniz: ")
-            name = input("Silmek istediğiniz hesap ismini giriniz: ")
-        
-            if account_number in accountDict:
-                print(deleteAccount(accountDict, account_number, name))
-            else:
-                print("Hesap bulunamadı.")
+            print(atm.deleteAccount( account_number, name))
 
         elif process == "3":
-            account_number = input("Hesap numarasını giriniz: ")
-            old_name = input("Güncellemek istediğiniz hesap ismini giriniz: ")
-
-            if account_number in accountDict:
-                for account in accountDict[account_number]:
-                    if account['name'] == old_name:
-                        new_name = input("Yeni hesap adını giriniz: ")
-                        new_balance = int(input("Yeni hesap bakiyesini giriniz: "))
-                        print(updateAccount(accountDict, account_number, old_name, new_name, new_balance))
-                        break
-                else:
-                    print("Hesap bulunamadı.")
-            else:
-                print("Hesap bulunamadı.")
-
-
+            new_name = input("Yeni hesap ismini giriniz: ")
+            new_balance = int(input("Yeni hesap bakiyesini giriniz: "))
+            print(atm.updateAccount( account_number, name, new_name, new_balance))
 
         elif process=="4":
-            account_number = input("Hesap numarasını giriniz: ")
-            if account_number in accountDict:
-                print(listAccounts(accountDict[account_number]))
-            else:
-                print("İlgili hesap numarasına ait kayıtlı hesap bulunmamaktadır.")
+            print(atm.listAccounts( account_number))
+            
 
         elif process=="5":
-            account['account_number'] = input("Eklemek istediğiniz hesap numarasını giriniz: ")
-            if account['account_number'] in accountDict:
-                account['name'] = input("Eklemek istediğiniz hesap ismini giriniz: ")
-                if account['name'] in accountDict[account['name']]:
-                    print("Bu isimde bir hesap zaten bulunmaktadır.")
-                    return 'continue'
-                else :
-                    account[name]=account['name']
-                    account['balance'] = int(input("Eklemek istediğiniz hesap bakiyesini giriniz: "))
-                    print(addExtraAccount(accountDict, account_number, name, balance))
-                    return check_exit()
-            else:
-                print("Hesap numarası bulunamadı.")
-                return 'continue'
+            balance = int(input("Ek hesap bakiyesini giriniz: "))
+            print(atm.addExtraAccount( account_number, name, balance))
+            
+            
 
         elif process=="6":
-            account_number = input("Bakiyesini sorgulamak istediğiniz hesap numarasını giriniz: ")
-            name = input("Bakiyesini sorgulamak istediğiniz hesap ismini giriniz: ")
-            if account_number and name in accountDict and accountDict[account_number[name]]:
-                print(checkBalance(accountDict, account_number, name))
-            else:
-                print("Hesap bulunamadı.")
+            print(atm.checkBalance( account_number, name))
+            
 
         elif process=="7":
-            account_number = input("Para yatırmak istediğiniz hesap numarasını giriniz: ")
-            name = input("Para yatırmak istediğiniz hesap ismini giriniz: ")
             amount = int(input("Yatırmak istediğiniz tutarı giriniz: "))
-            if account_number and name in accountDict and accountDict[account_number[name]]:
-                print(depositMoney(accountDict, account_number, name, amount))
-            else:
-                print("Hesap bulunamadı.")
-
+            print(atm.depositMoney( account_number, name, amount))
+            
 
             
         elif process=="8":
-            account_number = input("Para çekmek istediğiniz hesap numarasını giriniz: ")
-            name = input("Para çekmek istediğiniz hesap ismini giriniz: ")
             amount = int(input("Çekmek istediğiniz tutarı giriniz: "))
-            if account_number and name in accountDict and accountDict[account_number[name]]:
-                print(withdrawMoney(accountDict, account_number, name, amount))
-            else:
-                print("Hesap bulunamadı.")
+            print(atm.withdrawMoney( account_number, name, amount))
+            
 
         elif process=="9":
-            return 'break'
+            print("Çıkış yapılıyor...")
+            break
         
         else:
             print("Geçersiz işlem.")
 
-        if not check_exit() == 'continue':
-            return 'break'
-
-
+        if atm.check_exit() == 'break':
+            break 
 
 
 #SYSTEM
-
-print("ATM Sistemine Hoşgeldiniz.")
-
-while True:
-    if systemATM() == 'break':
-        break
+systemATM()
